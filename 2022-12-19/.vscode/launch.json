@@ -1,0 +1,44 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Test part 1",
+			"type": "python",
+			"request": "launch",
+			"program": "robots.py",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"args": ["test.txt", "24", "99999"]
+		},
+		{
+			"name": "Reality part 1",
+			"type": "python",
+			"request": "launch",
+			"program": "robots.py",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"args": ["input.txt", "24", "99999"]
+		}
+		{
+			"name": "Test part 2",
+			"type": "python",
+			"request": "launch",
+			"program": "robots.py",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"args": ["test.txt", "32", "99999"]
+		},
+		{
+			"name": "Reality part 2",
+			"type": "python",
+			"request": "launch",
+			"program": "robots.py",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"args": ["input.txt", "32", "3"]
+		}
+	]
+}
