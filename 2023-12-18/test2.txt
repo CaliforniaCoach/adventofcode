@@ -1,0 +1,14 @@
+R 10 fffffffff
+D 4 fffffffff
+L 3 fffffffff
+D 2 fffffffff
+L 3 fffffffff
+U 3 fffffffff
+R 1 fffffffff
+U 2 fffffffff
+L 3 fffffffff
+D 2 fffffffff
+L 3 fffffffff
+U 2 fffffffff
+R 1 fffffffff
+U 1 fffffffff
