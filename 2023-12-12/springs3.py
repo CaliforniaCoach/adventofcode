@@ -75,6 +75,11 @@ def test(springs, numbers, hashblocks):
 
 
 def calc_pure_question_marks_sequence(sequence_len, numbers):
+	# Examples (n is always 3):
+	# 1 number,  3 free tiles -> 3
+	# 2 numbers, 3 free tiles -> 3 + 2 + 1                             = [sum(i), i = 1 to 3]                                    =  1/2 * n * (n + 1)
+	# 3 numbers, 3 free tiles -> (3+2+1)+(2+1)+(1)                     = [sum[sum([i), i = 1 to k], k = 1 to 3]                  =  1/6 * n * (n + 1) * (n + 2)
+	# 4 numbers, 3 free tiles -> [(3+2+1)+(2+1)+(1)]+[(2+1)+(1)]+[(1)] = [sum[sum[sum([i), i = 1 to k], k = 1 to m], m = 1 to 3] = 1/24 * n * (n + 1) * (n + 2) * (n + 3)
 	n = sequence_len - (sum(numbers) + len(numbers) - 1) + 1
 	num = 1
 	for i in range(len(numbers)):

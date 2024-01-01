@@ -267,12 +267,16 @@ class Trench {
 					if (it1->x2 >= it2->x1 && it1->x2 <= it2->x2) {
 						area -= it1->x2 - it2->x1 + 1;
 						it1->x2 = it2->x2;
-						it2 = curSpans.erase(it2);
+						curSpans.erase(it2);
+						// Restart it2 from beginning because earlier it2 spans might overlap now
+						it2 = it1 + 1;
 						proceed = false;
 					} else if (it1->x1 >= it2->x1 && it1->x1 <= it2->x2) {
 						area -= it2->x2 - it1->x1 + 1;
 						it1->x1 = it2->x1;
-						it2 = curSpans.erase(it2);
+						curSpans.erase(it2);
+						// Restart it2 from beginning because earlier it2 spans might overlap now
+						it2 = it1 + 1;
 						proceed = false;
 					}
 					if (proceed) {
