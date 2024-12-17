@@ -1,0 +1,8 @@
+2,4 -> <B> = <A> & 0x07
+1,1 -> <B> = <B> xor 1 -> flip bit 0
+7,5 -> <C> = <A> / <B>
+1,5 -> <B> = <B> xor 5 -> flip bit 0 and 2
+4,0 -> <B> = <B> xor <C>
+5,5 -> output <B> & 0x07 -> B[0] = A[0] xor A[5], B[1] = A[1] xor A[6], B[2] = inv(A[2] xor A[7]), B[3] = A[3] xor A[8]
+0,3 -> <A> = <A> / 8
+3,0 -> JNZ(<A>) to beginning => A must be in 35184372088832..281474976710655 = 2^45..<2^48
