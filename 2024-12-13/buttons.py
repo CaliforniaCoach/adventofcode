@@ -1,48 +1,36 @@
-def extendedEuclid(a, b):
-    if b == 0:
-        return (a, 1, 0)
-    else:
-        res = extendedEuclid(b, a % b)
-        return res[0], res[2], res[1] - (a // b) * res[2]
+import sympy
 
-def solve(a, b, c):
-    (gcd, s, t) = extendedEuclid(a, b)
-    if c % gcd != 0:
-        return None
-    x0 = s * c // gcd
-    y0 = t * c // gcd
-    cycleX = b // gcd
-    cycleY = a // gcd
-    return (x0, y0, cycleX, cycleY)
+def main():
+	games = []
+	with open("input.txt") as file:
+		while True:
+			line = file.readline().strip()
+			if len(line) == 0:
+				break
+			ax, ay = line.split(": ")[1].split(", ")
+			bx, by = file.readline().strip().split(": ")[1].split(", ")
+			px, py = file.readline().strip().split(": ")[1].split(", ")
+			file.readline()
+			
+			games.append((int(ax[2:]), int(ay[2:]), int(bx[2:]), int(by[2:]), int(px[2:]), int(py[2:])))
 
-# 
-# fun positiveModulo(a: Long, b: Long): Long {
-#     return (a % b + b) % b
-# }
-# 
-# fun ceilDiv(a: Long, b: Long): Long {
-#     return if (a >= 0L) (a + b - 1) / b else a / b
-# }
-# 
+		
+	print(f"Tokens needed to win all possible prizes: {calc_required_tokens(games, 0)}")
+	print(f"Tokens needed to win all possible prizes with offset: {calc_required_tokens(games, 10000000000000)}")
 
-btnAX = 94
-btnBX = 22
-btnAY = 34
-btnBY = 67
 
-prizeX = 10000000008400
-prizeY = 10000000005400
+def calc_required_tokens(games, p_offset):
+	a, b = sympy.symbols("a b", integer=True)
+	tokens = 0
+	for (ax, ay, bx, by, px, py) in games:
+		solutions = sympy.linsolve((a * ax + b * bx - (px + p_offset), a * ay + b * by - (py + p_offset)), (a, b))
+		if len(solutions) != 1:
+			print(f"Warning: Multiple solutions found for game {ax=}, {ay=}, {bx=}, {by=}, {px=}, {py=}")
+		slnA, slnB = next(iter(solutions))
+		if slnA.is_nonnegative and slnB.is_nonnegative and slnA.is_Integer and slnB.is_Integer:
+			tokens += 3 * slnA + slnB
+	return tokens
 
-(ax0, bx0, cax, cbx) = solve(btnAX, btnBX, prizeX)
-(ay0, by0, cay, cby) = solve(btnAY, btnBY, prizeY)
 
-# cycleAX = 11
-# cycleBX = 47
-# cycleAY = 67
-# cycleBY = 34
-# ax0 = 20000000016800
-# bx0 = -85000000071400
-# ay0 = 20000000010800
-# by0 = -10000000005400
-
-print(solve(cax - cbx, cby - cay, ay0 + by0 - ax0 - bx0))
+if __name__ == "__main__":
+	main()

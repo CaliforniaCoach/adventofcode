@@ -1,17 +1,23 @@
-def blink():
-    i = 0
-    while i < len(stones):
-        stone = stones[i]
-        if stone == 0:
-            stones[i] = 1
-        elif len(str(stone)) % 2 == 0:
-            str_stone = str(stone)
-            stones[i] = int(str_stone[:len(str_stone) // 2])
-            stones.insert(i + 1, int(str_stone[len(str_stone) // 2:]))
-            i += 1
-        else:
-            stones[i] = stone * 2024
-        i += 1
+
+from functools import cache
+
+@cache
+def get_num_stones_after(start_stone, blinks):
+    if blinks == 0:
+        return 1
+    stones = [start_stone]
+    str_stone = str(stones[0])
+    if stones[0] == 0:
+        stones[0] = 1
+    elif len(str_stone) % 2 == 0:
+        stones[0] = int(str_stone[:len(str_stone) // 2])
+        stones.append(int(str_stone[len(str_stone) // 2:]))
+    else:
+        stones[0] *= 2024
+
+    return sum(get_num_stones_after(stone, blinks - 1) for stone in stones)
+
+
 
 stones = []
 with open("input.txt", encoding="utf-8") as reader:
@@ -19,14 +25,5 @@ with open("input.txt", encoding="utf-8") as reader:
         for tok in line.split():
             stones.append(int(tok))
 
-for i in range(0, 10):
-    blink()
-    print(len(stones))
-    print(stones)
-
-print(len(stones))
-
-for i in range(25, 75):
-    blink()
-
-print(len(stones))
+print(f"Stones after 25 blinks: {sum(get_num_stones_after(stone, 25) for stone in stones)}")
+print(f"Stones after 75 blinks: {sum(get_num_stones_after(stone, 75) for stone in stones)}")

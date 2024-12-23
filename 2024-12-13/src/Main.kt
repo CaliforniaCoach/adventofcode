@@ -8,7 +8,7 @@ fun main() {
     val reBtnB = "Button B: X\\+(\\d+), Y\\+(\\d+)".toRegex()
     val rePrize = "Prize: X=(\\d+), Y=(\\d+)".toRegex()
 
-    val reader = File("test.txt").bufferedReader()
+    val reader = File("input.txt").bufferedReader()
     var tokensNeeded = 0L
     var tokensNeeded2 = 0L
     while (reader.ready()) {
@@ -20,12 +20,12 @@ fun main() {
         val (prizeX, prizeY) = m!!.groupValues.subList(1, 3).map { it.toLong() }
         reader.readLine()
 
-        print("btnAX $btnAX, btnAY $btnAY, btnBX $btnBX, btnBY $btnBY, prizeX $prizeX, prizeY $prizeY -> ")
         tokensNeeded += calcButtonPresses(btnAX, btnAY, btnBX, btnBY, prizeX, prizeY)
         tokensNeeded2 += calcButtonPresses(btnAX, btnAY, btnBX, btnBY, prizeX + 10000000000000L, prizeY + 10000000000000L)
         println("So far: $tokensNeeded, $tokensNeeded2")
     }
     println("Minimum tokens needed: $tokensNeeded")
+    println("Minimum tokens needed with offset: $tokensNeeded2")
 }
 
 fun calcButtonPresses(btnAX: Long, btnAY: Long, btnBX: Long, btnBY: Long, prizeX: Long, prizeY: Long): Long {
@@ -66,11 +66,9 @@ fun calcButtonPresses(btnAX: Long, btnAY: Long, btnBX: Long, btnBY: Long, prizeX
     while (true) {
         val a = solutionAX + i * cycleAX
         val b = solutionBX - i * cycleBX
-        print("a = $a, b = $b -> ")
         if (b < 0) {
             break
         }
-        return 3 * a + b
         if ((a - solutionAY) % (btnBY / gcdY) == 0L) {
             val k = k0 - (i - i0) / iCycle * kCycle
             if (b == solutionBY - k * btnAY / gcdY) {
