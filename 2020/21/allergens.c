@@ -37,22 +37,6 @@ int get_item_index(int list[], int item) {
 	return -1;
 }
 
-int get_exactly_one_common_item(int list1[], int list2[]) {
-	int common_item = -1;
-	for (int i = 0; list1[i] >= 0; i++) {
-		int item = list1[i];
-		int idx = get_item_index(list2, item);
-		if (idx >= 0) {
-			if (common_item >= 0) {
-				return -1;
-			} else {
-				common_item = item;
-			}
-		}
-	}
-	return common_item;
-}
-
 int cmp(const void* p1, const void* p2) {
 	return strcmp(
 		allergen_name[((struct Allergen*) p1)->allergen_index],
